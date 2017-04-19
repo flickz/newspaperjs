@@ -1,0 +1,25 @@
+{
+  "name": "newspaperjs",
+  "version": "1.0.0",
+  "description": "A news aggregator module",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flickz/newspaperjs.git"
+  },
+  "keywords": [
+    "news",
+    "aggregator",
+    "web",
+    "scraper"
+  ],
+  "author": "Oluwaseun Omoyajowo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/flickz/newspaperjs/issues"
+  },
+  "homepage": "https://github.com/flickz/newspaperjs#readme"
+}
