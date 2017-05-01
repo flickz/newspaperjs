@@ -4,7 +4,7 @@
   "description": "A news aggregator module",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "nyc mocha --timeout=3000"
   },
   "repository": {
     "type": "git",
@@ -23,9 +23,11 @@
   },
   "homepage": "https://github.com/flickz/newspaperjs#readme",
   "dependencies": {
+    "lodash": "^4.17.4",
     "request": "^2.81.0"
   },
   "devDependencies": {
-    "chai": "^3.5.0"
+    "chai": "^3.5.0",
+    "nyc": "^10.3.0"
   }
 }
