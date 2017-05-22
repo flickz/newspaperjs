@@ -1,45 +1,60 @@
 'use strict'
 //Keep all html page extraction code within this file
-const cheerio = require('cheerio');
+const path = require('path');
 const _ = require('lodash');
-const cache = require('memory-cache')
+const config = require('./config');
 const util = require('./util');
 const network = require('./network');
-const urls = require('./url');
+const _extractor = require('./_special/_extractor')
 
-const ALLOWED_TYPES = ['html', 'htm', 'md', 'rst', 'aspx', 'jsp', 'rhtml', 'cgi',
-                 'xhtml', 'jhtml', 'asp', 'php'];
-const BAD_DOMAINS = ['amazon.com', 'doubleclick.com', 'twitter.com', 'facebook.com'];
+const dir = '../../test/data/html';
 
-const GOOD_PATHS = ['story', 'article', 'feature', 'featured', 'slides',
-              'slideshow', 'gallery', 'news', 'video', 'media',
-              'v', 'radio', 'press', 'sport', 'entertainment', 'world', 'technology', 'tech', 'showbiz'];
-
-const BAD_CHUNKS = ['careers', 'contact', 'about', 'faq', 'terms', 'privacy',
-              'advert', 'preferences', 'feedback', 'info', 'browse', 'howto',
-              'account', 'subscribe', 'donate', 'shop', 'admin'];
-
-function ContentExtractor(sourceUrl){
-    this.sourceUrl = sourceUrl;
-    this.doc = null;
-}
-ContentExtractor.prototype.request = function(){
-   return network.getParsedHtml(this.sourceUrl)
-        .then(function(body){
-            return body;
-        }).catch(function(err){
-            console.error("Failed to get HTML", err);
-        })
-}
-ContentExtractor.prototype.parseHtml = function(){
-    this.request().then((result)=>{
-        this.doc = result;
-        return
-    }).catch((err)=>console.log(err));
-    console.log(this.doc);
-    
+//Extraction wrapper holds every extraction
+let Extractor = {
+    config: config
 }
 
+let urlExtractor = Object.create(Extractor);
 
-let cnn = new ContentExtractor('http://cnn.com');
-cnn.parseHtml();
+urlExtractor.getAllUrl = function(sourceUrl){
+    this.sourceUrl = sourceUrl
+    this.doc = network.getParsedHtml(this.sourceUrl);
+    return this.doc.then($=>{
+        return _extractor._getAllUrls($)
+    }).catch(reason=>{
+        console.error(reason);
+    });
+}
+//TODO: Change url after test
+urlExtractor.getCategoryUrls = function(){
+    return this.getAllUrl(this.sourceUrl).then(urls=>{
+          return _extractor._getCategoryUrls(this.sourceUrl, urls, ['politics', 'sports']); 
+    }).catch(reason=>{
+        console.error(reason);
+    })
+}
+urlExtractor.getArticleUrl = function(){
+    return this.getCategoryUrls().then(categoriesUrl=>{
+        let allArticlesUrl = []
+        if(categoriesUrl.length>0){
+            new Promise((resolve, reject)=>{
+                 for(let i=0; i<categoriesUrl.length; i++){
+                    _extractor._getArticleUrls(categoriesUrl[i]).then(obj=>{
+                        allArticlesUrl.push(obj)
+                        if(allArticlesUrl.length >=  categoriesUrl.length){
+                            resolve(allArticlesUrl);
+                        }
+                    })                  
+                }
+                
+            }).then(data=>console.log(data));
+        }
+        
+    }).catch(reason=>{
+        console.log(reason);
+    })
+}
+urlExtractor.getAllUrl('https://www.nytimes.com');
+urlExtractor.getCategoryUrls();
+urlExtractor.getArticleUrl();
+//module.exports = urlExtractor;  

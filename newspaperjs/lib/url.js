@@ -61,14 +61,20 @@ exports.isValidNewsUrl = function(url, verbose=false){
         if(verbose)console.log(url, " caught for bad url paths \n");
         return false;
     }
-    if(_url._hasGoodPath(pathChuncks)){
-        if(verbose)console.log(url, " verified for good path \n");
-        return true;
-    }
 
     if(verbose)console.log(url, "caught for default false");
     return false;
 }
 
+exports.getProtocol = function(url){
+    return urlPaser.parse(url).protocol;
     
-     
+}
+
+exports.getDomainName = function(url){
+    return urlPaser.parse(url).hostname;
+}
+
+exports.getPath = function(url){
+   return urlPaser.parse(url).pathname; 
+}

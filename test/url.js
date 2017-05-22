@@ -39,6 +39,26 @@ describe('Urls', function(){
             let actual = url.isValidNewsUrl("http://facebook.com/profile/111132302323/ellen-good-news/", true);
             chai.assert.isFalse(actual);
         });
-
+    })
+    describe("#getProtocol", function(){
+        it.only('should return url protocol', function(){
+            let actual = url.getProtocol("http://cnn.com");
+            let expected = 'http:';
+            chai.assert.deepEqual(actual, expected);
+        })
+    })
+    describe("#getDomainName", function(){
+        it.only('should return url domain name', function(){
+            let actual = url.getDomainName("http://cnn.com");
+            let expected = 'cnn.com';
+            chai.assert.deepEqual(actual, expected);
+        })
+    })
+    describe("#getPath", function(){
+        it.only('should return url path', function(){
+            let actual = url.getPath("http://cnn.com/money/technology");
+            let expected = '/money/technology';
+            chai.assert.deepEqual(actual, expected);
+        })
     })
 });
