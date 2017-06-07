@@ -1,23 +1,43 @@
 const chai = require('chai');
+const path = require('path');
 const _extractor = require('../newspaperjs/lib/_special/_extractor');
+const network = require('../newspaperjs/lib/network');
 
 describe("#_extractor", function(){
-    describe("#_getCategoryUrls", function(){
-        it.only('Should extract category urls',function(){
-            let cnnTestUrl = [
-                '/money', '/entertainment', '/newsletter', '/celebrity',
-                '/opinions','/specials/opinion/opinion-politics',
-                 '/specials/opinion/opinion-social-issues','/health',
-                 '/specials/health/diet-fitness','/specials/health/living-well',
-                 '//money.cnn.com', '//money.cnn.com/data/markets/','//money.cnn.com/technology/',
-                    '//money.cnn.com/media/', '/entertainment', '/politics', '/sports', '/africa', undefined
-            ];
-            let actual = _extractor._getCategoryUrls('http://cnn.com', cnnTestUrl);
-            let expected = [
-                'http://cnn.com/money', 'http://cnn.com/entertainment', 'http://cnn.com/celebrity',
-                'http://cnn.com/opinions', 'http://cnn.com/health', 'http://cnn.com/politics',
-                'http://cnn.com/sports', 'http://cnn.com/africa'
-            ]
+    let localArticleUrl = path.join(__dirname, 'data/html/newyorktimepost.html');
+    let localSourceUrl = path.join(__dirname, 'data/html/newyorktimes.html');
+    let localSourceCategoryUrl = path.join(__dirname, 'data/html/newyorktime-tech.html');
+   
+    describe("#_getAllUrl", function(){
+        it.only("Should return an array of string", function(){
+            network.getParsedHtml(localArticleUrl).then($=>{
+                let actual = _extractor._getAllUrls($);
+                chai.assert.typeOf(actual, 'array');
+            }).catch(reason=>{
+                console.log(reason);
+            })
+        })
+    })
+    describe("#_getCategoryUrl", function(){
+        it.only("Should return an array of string", function(){
+             let actual = _extractor._getCategoryUrls('https://www.nytimes.com', ['https://www.nytimes.com/pages/technology']);
+             chai.assert.typeOf(actual, 'array');
+        })
+    })
+    describe("#_getArticlesUrl", function(){
+        it.only("Should return an array of string", function(){
+            network.getParsedHtml(localSourceCategoryUrl).then($=>{
+                let actual = _extractor._getArticlesUrl($, 'https://www.nytimes.com/pages/technology');
+                chai.assert.typeOf(actual, 'array');
+            }).catch(reason=>{
+                console.log(reason);
+            })
+        })
+    })
+    describe("#_getCategoryName", function(){
+        it.only("should return the category name of a category url", function(){
+            let actual = _extractor._getCategoryName('https://www.nytimes.com/pages/technology')
+            let expected = 'technology';
             chai.assert.deepEqual(actual, expected);
         })
     })

@@ -35,7 +35,7 @@ exports._getCategoryUrls = function(sourceUrl, links, categories=[]){
         if(typeof links[i] == 'string'){
             let domain = url.getDomainName(links[i]),
                 protocol = url.getProtocol(links[i]),
-                path = url.getPath(links[i]),
+                path = url.getPath(links[i]),   
                 parsedSourceUrl = tldParser(sourceUrl);
             if(domain==null && path==null){
                 if(config.verbose) console.log("elim category url "+links[i]+ " for no domain and path");
@@ -100,22 +100,18 @@ exports._getCategoryUrls = function(sourceUrl, links, categories=[]){
     return _.union(categoriesUrl);
 }
 
-exports._getArticleUrls = function(categoryUrl){
-    let obj = {}, articlesUrl = [];
-    return network.getParsedHtml(categoryUrl).then($=>{
-         let links = _this._getAllUrls($);
-         for(let i=0; i<links.length; i++){
-             //check news link validity and also ensure the link is related to the category
-             //like 'https://www.nytimes.com/2017/05/17/technology/google-io-conference.html'
-             //for technology category
-            if(url.isValidNewsUrl(links[i]) && links[i].match(_this._getCategoryName(categoryUrl)) != null){
-                articlesUrl.push(links[i]);
-            }
-         }
-         _.set(obj, 'category', _this._getCategoryName(categoryUrl));  
-         _.set(obj, 'categoriesUrl', articlesUrl);
-        return obj;   
-    })
+exports._getArticlesUrl = function($, categoryUrl){
+    let articlesUrl = [];
+    let links = _this._getAllUrls($);
+    for(let i=0; i<links.length; i++){
+        //check news link validity and also ensure the link is related to the category
+        //like 'https://www.nytimes.com/2017/05/17/technology/google-io-conference.html'
+        //for technology category
+        if(url.isValidNewsUrl(links[i]) && links[i].match(_this._getCategoryName(categoryUrl)) != null){
+            articlesUrl.push(links[i]);
+        }
+    }
+    return articlesUrl;
 }
 
 exports._getCategoryName = function(link){

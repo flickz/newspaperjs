@@ -13,7 +13,7 @@ describe("#Network", function(){
                    // console.log($.html())
                 }).catch(reason=>{
                     //console.log(reason)
-                }).then(done);
+                }).then(done);  
         });
     })
 })

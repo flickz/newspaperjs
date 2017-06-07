@@ -6,57 +6,29 @@ const config = require('./config');
 const util = require('./util');
 const network = require('./network');
 const _extractor = require('./_special/_extractor')
-
 const dir = '../../test/data/html';
  
-//Extraction wrapper holds every extraction
-let Extractor = {
-    config: config
-}  
-
-let urlExtractor = Object.create(Extractor);
-
-urlExtractor.getAllUrl = function(sourceUrl){
-    this.sourceUrl = sourceUrl
-    this.doc = network.getParsedHtml(this.sourceUrl);
-    return this.doc.then($=>{
-        let links =  _extractor._getAllUrls($);
-        return links;
-    }).catch(reason=>{
-        console.error("Unable to get page links", reason);
-    });
+let getAllUrl = async function(sourceUrl){
+    let $ = network.getParsedHtml(sourceUrl);
+    return _extractor._getAllUrls(await $);
 }
-//TODO: Change url after test
-urlExtractor.getCategoryUrls = function(categories){
-    return this.getAllUrl(this.sourceUrl).then(urls=>{
-          return _extractor._getCategoryUrls(this.sourceUrl, urls, categories); 
-    }).catch(reason=>{
-        console.error("Couldn't get categories url");
-    })
+
+/**
+ * 
+ * @param {String} sourceUrl 
+ * @param {Array} categories 
+ */
+let getCategoryUrls = async function(localFileUrl=null, sourceUrl, categories=[]){
+    //during test use the get all url from the local html file  but
+    //when not testing get all url from source url.
+    let urls = (config.test)?getAllUrl(localFileUrl):getAllUrl(sourceUrl);
+    return _extractor._getCategoryUrls(sourceUrl || localFileUrl, await urls, categories);
 }
-urlExtractor.getArticleUrl = function(){
-    return this.getCategoryUrls().then(categoriesUrl=>{
-        let allArticlesUrl = []
-        if(categoriesUrl.length>0){
-            //TODO: Refactor to using generators
-            new Promise((resolve, reject)=>{
-                for(let i=0; i<categoriesUrl.length; i++){
-                    _extractor._getArticleUrls(categoriesUrl[i]).then(obj=>{
-                        allArticlesUrl.push(obj)
-                        if(allArticlesUrl.length >=  categoriesUrl.length){
-                            resolve(allArticlesUrl);
-                        }
-                    }).catch(reason=>{
-                        reject(reason);
-                    })           
-                }
-                
-            }).then(data=>console.log(data));
-        }
-        
-    }).catch(reason=>{
-        console.log(reason);
-    })
+
+//Get article urls from a given category source
+let getArticlesUrl = async function(localFileUrl='', categorySource){
+    let $ = network.getParsedHtml(localFileUrl || categorySource);
+    return _extractor._getArticlesUrl(await $, categorySource);
 }
 
 //Article 
@@ -167,5 +139,8 @@ module.exports = {
     getDate: getDate,
     getTopImage: getTopImage,
     getKeywords: getKeywords,
-    getAuthor: getAuthor
+    getAuthor: getAuthor,
+    getAllUrl: getAllUrl,
+    getCategoryUrls: getCategoryUrls,
+    getArticlesUrl: getArticlesUrl
 }
