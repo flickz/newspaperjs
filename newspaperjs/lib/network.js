@@ -19,11 +19,11 @@ function getRequestOptions(timeOut, userAgent){
         },
         transform: function (body) {
             return cheerio.load(body, {xmlmode: true});
-        }
+        },
+        maxRedirects: 21,
+        jar: true
     }
 }
-
-
 
 exports.getParsedHtml = function(sourceUrl){
     if(config.test){

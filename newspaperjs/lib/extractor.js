@@ -16,13 +16,15 @@ let getAllUrl = async function(sourceUrl){
 /**
  * 
  * @param {String} sourceUrl 
- * @param {Array} categories 
+ * @param {String} [localFileUrl] - For test, the local file url. 
+ * @param {Array} [categories]  - Categories url intrested in
+ * 
  */
-let getCategoryUrls = async function(localFileUrl=null, sourceUrl, categories=[]){
+let getCategoryUrls = async function(sourceUrl, localFileUrl='', categories=[]){
     //during test use the get all url from the local html file  but
     //when not testing get all url from source url.
     let urls = (config.test)?getAllUrl(localFileUrl):getAllUrl(sourceUrl);
-    return _extractor._getCategoryUrls(sourceUrl || localFileUrl, await urls, categories);
+    return _extractor._getCategoryUrls(sourceUrl, await urls, categories);
 }
 
 //Get article urls from a given category source
@@ -31,6 +33,9 @@ let getArticlesUrl = async function(localFileUrl='', categorySource){
     return _extractor._getArticlesUrl(await $, categorySource);
 }
 
+let getCategoryName = function(link){
+    return _extractor._getCategoryName(link);
+}
 //Article 
 let getTitle = function ($){
     //We extract title from any of these meta data
@@ -142,5 +147,6 @@ module.exports = {
     getAuthor: getAuthor,
     getAllUrl: getAllUrl,
     getCategoryUrls: getCategoryUrls,
-    getArticlesUrl: getArticlesUrl
+    getArticlesUrl: getArticlesUrl,
+    getCategoryName: getCategoryName
 }

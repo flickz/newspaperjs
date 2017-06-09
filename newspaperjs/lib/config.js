@@ -3,7 +3,7 @@ function Config(){
     this.timeOut = 1000;
     this.userAgent = "newspaperjs"
     this.verbose = true;
-    this.test = true;
+    this.test = false;
 }
 
 //let newsConfig = new Config();
