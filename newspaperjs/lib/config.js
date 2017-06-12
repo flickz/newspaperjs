@@ -2,7 +2,7 @@
 function Config(){
     this.timeOut = 50000;
     this.userAgent = "newspaperjs"
-    this.verbose = true;
+    this.verbose = false;
     this.test = false;
 }
 
