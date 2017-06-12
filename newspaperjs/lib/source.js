@@ -18,7 +18,7 @@ exports.getCategoriesUrl = async function(url, cateOfInterest) {
  * @param {array} categoriesUrl - Url of categories you interested in
  * @return {promise}
  */
-exports.getArticleUrl = async function(categoriesUrl){
+exports.getArticlesUrl = async function(categoriesUrl){
     let obj = {}, finalResult = [];
     if(categoriesUrl.length > 0){
         for(let cateUrl of categoriesUrl){
