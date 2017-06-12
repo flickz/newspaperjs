@@ -1,7 +1,7 @@
 {
   "name": "newspaperjs",
   "version": "1.0.0",
-  "description": "A news aggregator module",
+  "description": "News extraction and scraping. Article Parsing",
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha --timeout=3000"
