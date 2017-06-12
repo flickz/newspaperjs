@@ -72,26 +72,24 @@ Article('https://www.nytimes.com/2017/06/10/us/politics/sessions-senate-russia-e
 }).catch(reason=>{
     console.log(reason);
 })
-//{
+{
     title: 'Sessions Will Testify in Senate on Russian Meddling in Election',
 
-    text: " AdvertisementBy CHARLIE SAVAGEJUNE 10, 2017\nWASHINGTON — Attorney General Jeff Sessions told Congress
-on Saturday that he would testify before the Senate Intelligence Committee on Tuesday about issues related to Russia’s interference in the 2016 election.  
-Mr. Sessions had been scheduled to testify before other committees about the Justice Department’s budget that day, but he will instead appear before the intelligence panel.
-Mr.Sessions said he would send Rod J. Rosenstein, the deputy attorney general, to testify about the department’s budget before the House and Senate appropriations panels.... ",
+    text: " AdvertisementBy CHARLIE SAVAGEJUNE 10, 2017\nWASHINGTON — Attorney General Jeff Sessions told Congress on Saturday that he would testify before the Senate Intelligence Committee on Tuesday about issues related to Russia’s interference in the 2016 election.  Mr. Sessions had been scheduled to testify before other committees about the Justice Department’s budget that day, but he will instead appear before the intelligence panel. Mr.Sessions said he would send Rod J. Rosenstein, the deputy attorney general, to testify about the department’s budget before the House and Senate appropriations panels.... ",
 
-topImage:'https://static01.nyt.com/images/2017/06/11/us/11dcSESSIONS/11dcSESSIONS-facebookJumbo.jpg',
+    topImage:'https://static01.nyt.com/images/2017/06/11/us/11dcSESSIONS/11dcSESSIONS-facebookJumbo.jpg',
 
-date: '2017-06-10T20:08:09-04:00',
+    date: '2017-06-10T20:08:09-04:00',
 
-author: 'Charlie Savage',
+    author: 'Charlie Savage',
 
-description: 'Instead of discussing the Justice Department budget, Attorney General Jeff Sessions will face questions from members of Congress who have access to intelligence materials on the Russia inquiry.',
+    description: 'Instead of discussing the Justice Department budget, Attorney General Jeff Sessions will face questions from members of Congress who have access to intelligence materials on the Russia inquiry.',
 
-keywords: [ 'Russian Interference in 2016 US Elections and Ties to Trump Associates', 'Sessions  Jefferson B III', 
-'Justice Department', 
-'United States Politics and Government', 'Attorneys General', 
-'Senate Committee on Intelligence','Trump  Donald J', 'Comey  James B' ]
+    keywords: [ 'Russian Interference in 2016 US Elections and Ties to Trump Associates', 'Sessions  Jefferson B III', 
+    'Justice Department', 
+    'United States Politics and Government', 'Attorneys General', 
+    'Senate Committee on Intelligence','Trump  Donald J', 'Comey  James B' ]
+}
 ```
 ## Author
 Authored and maintained by **Oluwaseun Omoyajowo**. Like to get in touch?

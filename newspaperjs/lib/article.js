@@ -6,7 +6,7 @@ const extractor = require('./extractor')
 /**
  * 
  * @param {string} url - Url of Article to Parse
- * @return {object}  - Parsed article 
+ * @return {promise}  - Parsed article 
  */
 let Article =  async function (url){
       let $ = network.getParsedHtml(url);
