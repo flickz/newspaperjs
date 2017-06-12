@@ -14,11 +14,11 @@ describe("Extractor", function(){
             })
         })
     })
-    describe("#getAll", function(){
+    describe("#getAllCategoryUrls", function(){
         it.only("Should return array", function(){
-            return extractor.getCategoryUrls(localSourceUrl, 'https://nytimes.com', ['politics', 'sports'])
+            return extractor.getCategoryUrls('https://nytimes.com', localSourceUrl,)
                             .then(categories=>{
-                                //console.log(categories);
+                                console.log(categories);
                             })
         })
     })

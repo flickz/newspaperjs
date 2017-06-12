@@ -20,16 +20,17 @@ let getAllUrl = async function(sourceUrl){
  * @param {Array} [categories]  - Categories url intrested in
  * 
  */
-let getCategoryUrls = async function(sourceUrl, localFileUrl='', categories=[]){
+let getCategoryUrls = async function(sourceUrl, categories=[]){
     //during test use the get all url from the local html file  but
     //when not testing get all url from source url.
-    let urls = (config.test)?getAllUrl(localFileUrl):getAllUrl(sourceUrl);
+    let urls = getAllUrl(sourceUrl);
     return _extractor._getCategoryUrls(sourceUrl, await urls, categories);
 }
 
 //Get article urls from a given category source
-let getArticlesUrl = async function(localFileUrl='', categorySource){
-    let $ = network.getParsedHtml(localFileUrl || categorySource);
+let getArticlesUrl = async function(categorySource){
+    let $ = network.getParsedHtml(categorySource);
+    console.log(categorySource)
     return _extractor._getArticlesUrl(await $, categorySource);
 }
 

@@ -4,7 +4,12 @@ const _ = require('lodash');
 const tldParser = require('tld-extract');
 const _url = require('./_special/_url');
 
-
+exports.removeArgs = function(url){
+    if(_url._hasUrlQuery(url)){
+       return _url._removeArgs(url);       
+    }
+    return url;
+}
 
 exports.isValidNewsUrl = function(url, verbose=false){
      //check url format

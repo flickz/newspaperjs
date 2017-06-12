@@ -1,6 +1,6 @@
 'use strict'
 function Config(){
-    this.timeOut = 1000;
+    this.timeOut = 50000;
     this.userAgent = "newspaperjs"
     this.verbose = true;
     this.test = false;

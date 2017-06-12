@@ -10,12 +10,15 @@ const path = require('path')
  * @param {array} cateOfInterest - News categories you interested in
  * @return {promise}
  */
-let Build = async function(url, cateOfInterest) {
-    let categories = extractor.getCategoryUrls(url, cateOfInterest);
-    return getArticleUrl(await categories);
+exports.getCategoriesUrl = async function(url, cateOfInterest) {
+    return await extractor.getCategoryUrls(url, cateOfInterest);
 }
 
-async function getArticleUrl(categoriesUrl){
+/**
+ * @param {array} categoriesUrl - Url of categories you interested in
+ * @return {promise}
+ */
+exports.getArticleUrl = async function(categoriesUrl){
     let obj = {}, finalResult = [];
     if(categoriesUrl.length > 0){
         for(let cateUrl of categoriesUrl){
@@ -33,5 +36,3 @@ async function getArticleUrl(categoriesUrl){
 function eachCat(cateUrl){
     return extractor.getArticlesUrl(cateUrl)
 }
-
-module.exports = Build;

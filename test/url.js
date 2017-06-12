@@ -31,12 +31,16 @@ describe('Urls', function(){
             let actual = url.isValidNewsUrl("http://shine.yahoo.com/ellen-good-news/won-8217-t-believe-colin-farrell-8217-surprise-190700409.html?vp=1", true);
             chai.assert.isTrue(actual);
         });
-        it.only("should return true", function(){
+        it.only("should return false", function(){
             let actual = url.isValidNewsUrl("http://shine.yahoo.com/admin/ellen-good-news/", true);
             chai.assert.isFalse(actual);
         });
-        it.only("should return true", function(){
+        it.only("should return false", function(){
             let actual = url.isValidNewsUrl("http://facebook.com/profile/111132302323/ellen-good-news/", true);
+            chai.assert.isFalse(actual);
+        });
+        it.only("should return false", function(){
+            let actual = url.isValidNewsUrl(undefined, true);
             chai.assert.isFalse(actual);
         });
     })

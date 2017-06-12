@@ -20,7 +20,9 @@ describe("#_extractor", function(){
     })
     describe("#_getCategoryUrl", function(){
         it.only("Should return an array of string", function(){
-             let actual = _extractor._getCategoryUrls('https://www.nytimes.com', ['https://www.nytimes.com/pages/technology']);
+             let actual = _extractor._getCategoryUrls('https://www.nytimes.com', ['https://www.nytimes.com/pages/technology', 
+             'https://www.nytimes.com/pages/politics'], ['politics']);
+             console.log(actual);
              chai.assert.typeOf(actual, 'array');
         })
     })

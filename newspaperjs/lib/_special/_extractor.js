@@ -17,7 +17,7 @@ const stopWord = [
             'tickets', 'coupons', 'forum', 'board', 'archive', 'browse',
             'howto', 'how to', 'faq', 'terms', 'charts', 'services',
             'contact', 'plus', 'admin', 'login', 'signup', 'register',
-            'developer', 'proxy', 'disclaimer'];
+            'developer', 'proxy', 'disclaimer', 'signin', 'signout', 'logout'];
 
 exports._getAllUrls = function($){
     let links = $('a').toArray();
@@ -56,15 +56,20 @@ exports._getCategoryUrls = function(sourceUrl, links, categories=[]){
                     continue;
                 }
                 //TODO: Add support for blogger category link;
-                //TODO: Abstract to regex block to a function
-                //CASE1: path with '/category/politics/index.html or /pages/politics/index.html
-                if(/^\/(category|page|pages|section)\/\w+\/(index.html)?$/.test(path)){
+                //TODO: Abstract regex block to a function
+                //CASE1: path with '/category/politics/index.html or /pages/politics/index.html             
+                if(/^\/(category|page|pages|section)\/\w+\/(index.html)?$/.test(path) || /^\/[a-z]+\/?(index.html)?$/.test(path)){                                   
+                    if(_.endsWith(path, '/')){
+                        path = path.slice(0, -1);
+                    }
                     let pathChunk = _.split(path, '/');
+                                     
                     if(_.indexOf(pathChunk, 'index.html')){
                         pathChunk = _.pull(pathChunk, 'index.html');
                     }
+
                     if(categories.length > 0){
-                        if(_.indexOf(categories, _.last(pathChunk)) != -1){
+                        if(_.indexOf(categories, _.last(pathChunk)) !== -1){
                             let newPath = _.join(pathChunk, '/')
                             categoriesUrl.push(sourceUrl+newPath);
                             continue;
@@ -82,6 +87,7 @@ exports._getCategoryUrls = function(sourceUrl, links, categories=[]){
                     if(_.indexOf(pathChunk, 'index.html')){
                         pathChunk = _.pull(pathChunk, 'index.html');
                     }
+                    
                     if(categories.length > 0){
                         if(_.indexOf(categories, _.last(pathChunk)) != -1){
                             let newPath = _.join(pathChunk, '/')
@@ -104,17 +110,29 @@ exports._getArticlesUrl = function($, categoryUrl){
     let articlesUrl = [];
     let links = _this._getAllUrls($);
     for(let i=0; i<links.length; i++){
+        if(isInvalid(links[i])){
+            continue;
+        }
         //check news link validity and also ensure the link is related to the category
         //like 'https://www.nytimes.com/2017/05/17/technology/google-io-conference.html'
         //for technology category
+        console.log(links[i]);
         if(url.isValidNewsUrl(links[i]) && links[i].match(_this._getCategoryName(categoryUrl)) != null){
+            links[i] = url.removeArgs(links[i]);
             articlesUrl.push(links[i]);
         }
     }
-    return articlesUrl;
+    return _.union(articlesUrl);
 }
 
 exports._getCategoryName = function(link){
     let path = url.getPath(link);
     return _.last(_.split(path, '/'));
+}
+
+function isInvalid(link){
+    if(link === undefined || link === null || link === ''){
+        return true;
+    }
+    return false
 }
