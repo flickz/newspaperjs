@@ -20,7 +20,7 @@ function getRequestOptions(timeOut, userAgent){
         transform: function (body) {
             return cheerio.load(body, {xmlmode: true});
         },
-        maxRedirects: 21,
+        maxRedirects: 100,
         jar: true
     }
 }

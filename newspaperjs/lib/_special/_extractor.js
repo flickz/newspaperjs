@@ -116,7 +116,6 @@ exports._getArticlesUrl = function($, categoryUrl){
         //check news link validity and also ensure the link is related to the category
         //like 'https://www.nytimes.com/2017/05/17/technology/google-io-conference.html'
         //for technology category
-        console.log(links[i]);
         if(url.isValidNewsUrl(links[i]) && links[i].match(_this._getCategoryName(categoryUrl)) != null){
             links[i] = url.removeArgs(links[i]);
             articlesUrl.push(links[i]);
