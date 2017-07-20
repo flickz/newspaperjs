@@ -1,6 +1,6 @@
 {
   "name": "newspaperjs",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "News extraction and scraping. Article Parsing",
   "main": "index.js",
   "scripts": {
