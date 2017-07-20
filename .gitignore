@@ -2,4 +2,3 @@ node_modules/
 .vscode/
 fake.js
 .nyc_output/
-index.js
