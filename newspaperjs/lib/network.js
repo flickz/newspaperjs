@@ -7,7 +7,6 @@ const request = require('request-promise-native');
 const cheerio = require('cheerio');
 const fs = require('fs');
 const path = require('path');
-const Rx = require('rx');
 
 const config = require('./config');
   
