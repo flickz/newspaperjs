@@ -1,5 +1,5 @@
-const Article = require('./lib/article')
-const Build = require('./lib/source')
+const Article = require('./lib/article');
+const Build = require('./lib/source');
 
 module.exports = {
     Article: Article,
