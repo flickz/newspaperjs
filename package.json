@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/flickz/newspaperjs#readme",
   "dependencies": {
+    "async": "^2.5.0",
     "cheerio": "^0.22.0",
     "lodash": "^4.17.4",
     "request": "^2.81.0",
@@ -30,7 +31,13 @@
     "tld-extract": "^1.0.1"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
     "chai": "^3.5.0",
+    "eslint": "^4.4.1",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.1.0",
     "nyc": "^10.3.0"
   }
 }
