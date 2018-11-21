@@ -1,3 +1,5 @@
+"PS: If you're using this module, reach out so I can have a reason to maintain it" 
+
 # Newspaperjs
 News extraction and scraping. Maximizing the power of [Request](https://github.com/request/request) and [Cheerio](https://github.com/cheeriojs/cheerio). 
 
