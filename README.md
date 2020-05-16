@@ -96,4 +96,4 @@ Authored and maintained by **Oluwaseun Omoyajowo**. Like to get in touch?
 
 Email: [omoyajowo2015@gmail.com](mailto:omoyajowo2015@gmail.com)
 
-Twitter: [@flickzcode](https://twitter.com/flickzcode)
+Twitter: [@oluwaseunOmoya](https://twitter.com/oluwaseunOmoya)
