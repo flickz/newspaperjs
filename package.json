@@ -4,7 +4,9 @@
   "description": "News extraction and scraping. Article Parsing",
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha --timeout=3000"
+    "test:coverage": "nyc npm run test",
+    "test": "mocha",
+    "lint:fix": "eslint --fix  \"lib/**/*.js\" \"test/**/*.js\""
   },
   "repository": {
     "type": "git",
@@ -32,6 +34,13 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-as-promised": "^7.1.1",
+    "eslint": "^7.0.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "mocha": "^7.1.2",
     "nyc": "^10.3.0"
   }
 }
